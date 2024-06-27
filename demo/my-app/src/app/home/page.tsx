@@ -1,4 +1,5 @@
 'use client';
+
 import Image from "next/image";
 import {Button, Flex, Space} from "antd";
 import Link from "next/link";
@@ -10,6 +11,7 @@ export default function Home() {
   return (
     <Flex className={"w-full h-screen"} justify={"center"} align={"center"} vertical="horizontal">
       <Button onClick={() => {setCount(count + 1)}} type={"primary"}>{`点击${count}次`}</Button>
+      <Link href={"/home/login"}>创建新用户</Link>
     </Flex>
   );
 }

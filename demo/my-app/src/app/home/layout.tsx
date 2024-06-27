@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   title: "MyApp Home",
   description: "App Home",
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -16,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ch-CN">
-    <body className={inter.className}>{children}</body>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }
