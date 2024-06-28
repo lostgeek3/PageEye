@@ -1,0 +1,76 @@
+.container {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  padding: 20px;
+}
+
+.countdown {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.products {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.product {
+  background: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 22%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.product img {
+  width: 60%;
+  height: 60%;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 10px;
+}
+
+.product h2 {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.product p {
+  font-size: 16px;
+  color: #888;
+  margin: 5px 0;
+}
+
+.product .price {
+  font-size: 20px;
+  color: #e74c3c;
+  margin: 10px 0;
+}
+
+.buyButton {
+  display: inline-block;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+  border: none;
+  color: white;
+}
+
+.disabledButton {
+  background: gray;
+  cursor: not-allowed;
+}
+
+.activeButton {
+  background: red;
+}
+
+.buyButton:hover:enabled {
+  background: darkred;
+}
