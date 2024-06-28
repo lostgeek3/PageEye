@@ -21,12 +21,17 @@ const IframeView: FunctionComponent<{ src: string, onElementSelected: (element: 
     }
   };
 
+  /**
+   * 点击iframe内的元素时触发
+   * 阻止默认事件，获取元素的xpath
+   *
+   * @param e - 点击事件
+   */
   const handleElementClick = (e: MouseEvent) => {
     const target = e.target as HTMLElement;
-    e.preventDefault();
-    e.stopPropagation();
-    console.log(target);
-    onElementSelected(target);
+    e.preventDefault();  // 阻止默认事件
+    e.stopPropagation(); // 阻止事件传播
+    onElementSelected(target);  // 传递选择的元素
   };
 
   useEffect(() => {
@@ -49,6 +54,13 @@ const IframeView: FunctionComponent<{ src: string, onElementSelected: (element: 
 
 // HtmlDisplay组件，负责显示选中的元素信息
 const HtmlDisplay: FunctionComponent<{ element: HTMLElement | null }> = ({ element }) => {
+
+  /**
+   * 获取元素的DOM路径
+   *
+   * @param element - 要获取DOM路径的元素
+   * @returns - 元素的DOM路径
+   */
   const parseDOM = (element: HTMLElement): string => {
     let path: string[] = [];
     while (element.parentNode) {
