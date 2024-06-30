@@ -18,9 +18,6 @@ const Dashboard = () => {
           <Grid item xs={12}>
             <Watcher />
           </Grid>
-          <Grid item xs={12}>
-            <Blog />
-          </Grid>
         </Grid>
       </Box>
     </PageContainer>

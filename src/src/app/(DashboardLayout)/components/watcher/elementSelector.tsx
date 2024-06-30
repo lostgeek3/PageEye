@@ -3,15 +3,21 @@ import pretty from 'pretty';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { xcode } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
-// IframeView组件，负责显示iframe和处理元素选择
+/**
+ * IframeView组件，负责显示iframe
+ *
+ * @param src - iframe的src
+ * @param onElementSelected - 选择元素时的回调函数
+ */
 const IframeView: FunctionComponent<{ src: string, onElementSelected: (element: HTMLElement) => void }> = ({ src, onElementSelected }) => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
-  const handleIframeLoad = () => {
+  const handleIframeLoad = async () => {
     const iframe = iframeRef.current;
     if (iframe) {
       const iframeDocument = iframe.contentDocument || iframe.contentWindow?.document;
       if (iframeDocument) {
+        console.log('Iframe document found');
         iframeDocument.body.addEventListener('click', handleElementClick);
       } else {
         console.error('Iframe document not found');
@@ -82,14 +88,14 @@ const HtmlDisplay: FunctionComponent<{ element: HTMLElement | null }> = ({ eleme
 
   return element ? (
     <div>
-      Selected element: {element.tagName}
+      <span className={'font-serif'}>Selected element:</span>
       <br />
       HTML:
       <SyntaxHighlighter language="htmlbars" style={xcode}>
         {pretty(element.outerHTML)}
       </SyntaxHighlighter>
       <br />
-      Content:
+      Preview:
       <div style={{ border: '1px solid #000' }}>
         <pre>
           <code dangerouslySetInnerHTML={{ __html: element.outerHTML }} />

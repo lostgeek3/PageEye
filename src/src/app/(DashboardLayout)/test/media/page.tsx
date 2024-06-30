@@ -1,4 +1,4 @@
-'use client'
+ 'use client'
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import styles from '../modules/media.module.css';
