@@ -1,29 +1,27 @@
-import { NextResponse } from 'next/server';
-import prisma from "@/lib/prisma";
+import {NextRequest, NextResponse} from 'next/server';
+import UserDAOImpl from "@/DAO/UserDAO";
+import {Params} from "next/dist/shared/lib/router/utils/route-matcher";
+import {NextApiRequest, NextApiResponse} from "next";
+import {number} from "prop-types";
 
-export async function POST(request: Request) {
+export async function GET(request: NextRequest) {
   try {
-    const body = await request.json();
-    const { name, email } = body;
-
-    if (!name || !email) {
-      const response = NextResponse.json({ error: 'Name and email are required' }, { status: 400 });
-      return response;
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+    if (!id) {
+      return NextResponse.json({error: 'Id is requirued'}, {status: 400});
     }
-
-    const user = await prisma.user.create({
-      data: {
-        username: name,
-        email: email,
-        nickname: '11'
-      },
-    });
-
-    const response = NextResponse.json(user, { status: 201 });
-    return response;
+    let userDAO = new UserDAOImpl();
+    let user = await userDAO.findUserById(parseInt(id));
+    if (user === null) {
+      return NextResponse.json({error: 'User does not exist'}, {status: 403});
+    }
+    return NextResponse.json({
+      success: 'Get user succeeded',
+      ...user
+    }, {status: 201});
   } catch (error) {
-    console.error('Error creating user:', error);
-    const response = NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
-    return response;
+    console.error(error);
+    return NextResponse.json({error: 'Get user failed'}, {status: 500});
   }
 }

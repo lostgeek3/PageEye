@@ -19,7 +19,7 @@ enum Role {
 }
 
 model User {
-  id        BigInt  @id @default(autoincrement())
+  id        Int     @id @default(autoincrement())
   username  String  @unique
   nickname  String
   avatar    String  @db.LongText
@@ -29,7 +29,10 @@ model User {
   role      Role    @default(Client)
 
   userSetting   UserSetting @relation(fields: [userSettingId], references: [id])
-  userSettingId BigInt      @unique
+  userSettingId Int         @unique
+
+  userAuth   UserAuth @relation(fields: [userAuthId], references: [id])
+  userAuthId Int      @unique
 
   watchers Watcher[]
 
@@ -39,10 +42,10 @@ model User {
 }
 
 model UserAuth {
-  id       BigInt @id @default(autoincrement())
+  id       Int    @id @default(autoincrement())
   password String
 
-  userId BigInt @unique
+  user User?
 }
 
 enum Language {
@@ -66,7 +69,7 @@ enum LogInterval {
 }
 
 model UserSetting {
-  id                   BigInt        @id @default(autoincrement())
+  id                   Int           @id @default(autoincrement())
   darkMode             Boolean       @default(false)
   language             Language      @default(Chinese)
   defaultWatchInterval WatchInterval @default(OneMinute)
@@ -89,7 +92,7 @@ enum WatcherState {
 }
 
 model Watcher {
-  id            BigInt        @id @default(autoincrement())
+  id            Int           @id @default(autoincrement())
   name          String
   url           String
   element       String?       @db.Text
@@ -103,18 +106,18 @@ model Watcher {
   useEmailService Boolean @default(true)
   useSmsService   Boolean @default(true)
 
-  user   User   @relation(fields: [userId], references: [id])
-  userId BigInt
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 }
 
 model WatcherData {
-  id      BigInt @id @default(autoincrement())
+  id      Int    @id @default(autoincrement())
   content String @db.LongText
 
-  watcherId BigInt
+  watcherId Int
 
   createdAt DateTime @default(now())
 }
@@ -127,9 +130,9 @@ enum NotificationServiceState {
 }
 
 model EmailServiceHistory {
-  id        BigInt                   @id @default(autoincrement())
-  userId    BigInt
-  watcherId BigInt
+  id        Int                      @id @default(autoincrement())
+  userId    Int
+  watcherId Int
   subject   String
   title     String
   body      String
@@ -139,9 +142,9 @@ model EmailServiceHistory {
 }
 
 model SmsServiceHistory {
-  id        BigInt                   @id @default(autoincrement())
-  userId    BigInt
-  watcherId BigInt
+  id        Int                      @id @default(autoincrement())
+  userId    Int
+  watcherId Int
   message   String
   state     NotificationServiceState @default(Created)
 

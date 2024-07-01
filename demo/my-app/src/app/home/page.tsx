@@ -11,7 +11,6 @@ export default function Home() {
   return (
     <Flex className={"w-full h-screen"} justify={"center"} align={"center"} vertical="horizontal">
       <Button onClick={() => {setCount(count + 1)}} type={"primary"}>{`点击${count}次`}</Button>
-      <Link href={"/home/login"}>创建新用户</Link>
     </Flex>
   );
 }

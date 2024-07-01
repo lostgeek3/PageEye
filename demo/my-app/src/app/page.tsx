@@ -1,12 +1,12 @@
 import Image from "next/image";
-import {Button} from "antd";
+import {Button, Flex} from "antd";
 import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className={"w-full h-full"}>
+    <Flex className={"w-full h-screen"} justify={"center"} align={"center"} vertical="horizontal">
       {/*"/"是根目录，即app/文件夹，对应app/page.tsx；"/home"是app/home/文件夹，对应app/home/page.tsx*/}
-      <Link href={"/home"}>aaa</Link>
-    </div>
+      <Link href={"/home"}>测试数据库</Link>
+    </Flex>
   );
 }
